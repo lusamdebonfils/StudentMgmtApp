@@ -1,9 +1,14 @@
 package edu.mum.cs.cs425.studentmgmt.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table(name = "classrooms")
@@ -15,6 +20,21 @@ public class Classroom {
 	private long classroomId;
 	private String buildingName;
 	private String roomNumber;
+	
+	@OneToMany(mappedBy = "classRoom")
+	private List<Student> students = new ArrayList<>();
+	
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+	
+	public void addStudent(Student student) {
+		this.students.add(student);
+	}
 	
 	public Classroom() {
 		super();
@@ -53,8 +73,10 @@ public class Classroom {
 	@Override
 	public String toString() {
 		return "Classroom [classroomId=" + classroomId + ", buildingName=" + buildingName + ", roomNumber=" + roomNumber
-				+ "]";
+				+ ", students=" + students + "]";
 	}
+
+	
 	
 	
 
